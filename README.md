@@ -3,9 +3,10 @@
 > Le grand classique du puzzle, en JavaScript pur — avec déplacement automatique du
 > personnage au clic, propulsé par un **algorithme A\***.
 
-![JavaScript](https://img.shields.io/badge/JavaScript-ES5-f7df1e?logo=javascript&logoColor=black)
+![JavaScript](https://img.shields.io/badge/JavaScript-vanilla-f7df1e?logo=javascript&logoColor=black)
 ![jQuery](https://img.shields.io/badge/jQuery-3.2.1-0769ad?logo=jquery&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-back--end-777bb4?logo=php&logoColor=white)
+![Static](https://img.shields.io/badge/100%25-statique-success)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-ready-222?logo=github)
 ![Tests](https://img.shields.io/badge/tests-node%3Atest-43853d?logo=node.js&logoColor=white)
 
 Poussez toutes les caisses (📦) sur leurs emplacements cibles (🎯) pour résoudre
@@ -22,8 +23,10 @@ chemin.
   calcul de plus court chemin (A\*) et le personnage s'y déplace en animation.
 - **Contrôle clavier** classique aux flèches directionnelles.
 - **Annulation** (undo) illimitée et **rechargement** du niveau en cours.
-- **Compteurs** de mouvements et de poussées.
+- **Compteurs** de mouvements et de poussées + **meilleur score** par niveau,
+  conservé dans le navigateur (`localStorage`).
 - **Détection automatique de victoire**.
+- **100 % statique** : aucun back-end, déployable tel quel sur GitHub Pages.
 - **Code testé** (suite `node:test`) et architecture découplée.
 
 ## 🎮 Comment jouer
@@ -71,9 +74,9 @@ Le code sépare strictement **modèle**, **rendu**, **pathfinding** et **contrô
 |---------|------|:---------------:|
 | [`game.js`](game.js) | Modèle de jeu pur : état (grille en mémoire), règles, `tryMove` / `undo`, victoire | ❌ |
 | [`astar.js`](astar.js) | Pathfinding A\* autonome (min-heap, Manhattan) | ❌ |
+| [`level.js`](level.js) | Parsing d'un niveau `.xsb` (texte) vers l'objet du modèle | ❌ |
 | [`render.js`](render.js) | Rendu DOM (jQuery), applique des *diffs* sans connaître les règles | ✅ |
-| [`main.js`](main.js) | Contrôleur : entrées utilisateur, AJAX, orchestration | ✅ |
-| [`niveau.php`](niveau.php) | Sert un niveau `.xsb` parsé en JSON | back-end |
+| [`main.js`](main.js) | Contrôleur : entrées utilisateur, chargement `fetch`, scores, orchestration | ✅ |
 
 Les opérations du modèle renvoient un **diff** décrivant ce qui a bougé
 (`{ joueur, caisse?, won }`), que le rendu applique sans rejouer la moindre règle
@@ -82,18 +85,30 @@ hors navigateur.
 
 ## 🚀 Lancer le projet
 
-Le jeu charge les niveaux via une requête AJAX vers `niveau.php`, il a donc besoin
-d'un **serveur PHP**. Le plus simple :
+Le jeu est **entièrement statique** : pas de build, pas de dépendance à installer
+(jQuery est fourni dans le dépôt). Les niveaux sont chargés via `fetch`, qui exige
+un contexte HTTP — il suffit de servir le dossier par n'importe quel serveur web :
 
 ```bash
-# Depuis la racine du projet
+# Au choix, depuis la racine du projet :
+python3 -m http.server 8000
+# ou
+npx serve
+# ou
 php -S localhost:8000
 ```
 
-Puis ouvrez <http://localhost:8000/index.html> dans votre navigateur.
+Puis ouvrez <http://localhost:8000/> dans votre navigateur.
 
-> 💡 Le serveur intégré de PHP suffit ; aucune dépendance ni étape de build n'est
-> nécessaire (jQuery est fourni dans le dépôt).
+> ⚠️ Ouvrir `index.html` directement en `file://` ne fonctionne pas : la plupart
+> des navigateurs bloquent `fetch` sur ce protocole. Passez par un serveur (local
+> ou GitHub Pages).
+
+### 🌐 Déploiement sur GitHub Pages
+
+Aucune configuration spécifique : dans **Settings → Pages**, choisissez la branche
+à publier (et le dossier racine `/`). Le jeu est servi tel quel — c'est l'intérêt
+du portage 100 % statique.
 
 ## ✅ Tests
 
@@ -105,7 +120,8 @@ npm test        # ou : node --test
 ```
 
 Sont notamment vérifiés : chemin trouvé, **optimalité** du chemin, cas sans
-solution, et les règles de déplacement / poussée / annulation.
+solution, les règles de déplacement / poussée / annulation, et le parsing des
+niveaux `.xsb`.
 
 ## 🗺️ Format des niveaux (`.xsb`)
 

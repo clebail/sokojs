@@ -41,31 +41,63 @@
         }
     }
 
+    // Meilleur score personnel par niveau, conservé dans le navigateur
+    // (localStorage) — remplace l'ancien classement servi par score.php.
+    function bestKey(niveau)
+    {
+        return "sokoban.best." + niveau;
+    }
+
+    function getBest(niveau)
+    {
+        try
+        {
+            var raw = window.localStorage.getItem(bestKey(niveau));
+
+            return raw ? JSON.parse(raw) : null;
+        }
+        catch (e)
+        {
+            return null;
+        }
+    }
+
+    // Critère Sokoban : d'abord le moins de poussées, puis le moins de mouvements.
+    function saveBest(niveau, nbMove, nbPush)
+    {
+        var best = getBest(niveau);
+        var meilleur = !best
+            || nbPush < best.nbPush
+            || (nbPush === best.nbPush && nbMove < best.nbMove);
+
+        if (meilleur)
+        {
+            best = { nbMove: nbMove, nbPush: nbPush };
+
+            try
+            {
+                window.localStorage.setItem(bestKey(niveau), JSON.stringify(best));
+            }
+            catch (e)
+            {
+                // localStorage indisponible (mode privé strict) : on ignore.
+            }
+        }
+
+        return best;
+    }
+
     function gagner()
     {
         canPlay = false;
 
+        var best = saveBest(game.niveau, game.nbMove, game.nbPush);
+
         setTimeout(function ()
         {
-            alert("Niveau réussi bravo !");
-
-            $.ajax({
-                url: "score.php",
-                type: "POST",
-                data: { niveau: game.niveau, nbMove: game.nbMove, nbPush: game.nbPush },
-                success: function (data)
-                {
-                    $(".highscore tbody").html(data);
-                },
-                beforeSend: function ()
-                {
-                    $("#loading").show();
-                },
-                complete: function ()
-                {
-                    $("#loading").hide();
-                }
-            });
+            alert("Niveau réussi, bravo !\n\n"
+                + "Vos coups : " + game.nbPush + " poussées, " + game.nbMove + " mouvements.\n"
+                + "Meilleur score : " + best.nbPush + " poussées, " + best.nbMove + " mouvements.");
         }, 500);
     }
 
@@ -85,31 +117,45 @@
         }, 100);
     }
 
+    // Nom du fichier niveau, numéro sur 4 chiffres : 1 -> "level0001.xsb".
+    function levelFile(niveau)
+    {
+        return "level" + String(niveau).padStart(4, "0") + ".xsb";
+    }
+
+    // Charge un niveau .xsb directement (statique, sans back-end) et le parse
+    // côté client via parseLevel (level.js).
     function loadNiveau(niveau)
     {
-        $.ajax({
-            url: "niveau.php",
-            type: "POST",
-            data: { niveau: niveau },
-            dataType: "JSON",
-            success: function (data)
+        canPlay = false;
+        $("#loading").show();
+
+        fetch(levelFile(niveau))
+            .then(function (reponse)
             {
-                game.init(data);
+                if (!reponse.ok)
+                {
+                    throw new Error("Niveau introuvable : " + niveau);
+                }
+
+                return reponse.text();
+            })
+            .then(function (texte)
+            {
+                game.init(parseLevel(texte));
                 game.niveau = niveau;
                 renderer.renderLevel(game);
                 renderer.setCounters(0, 0);
-                $(".highscore tbody").html(data["scores"]);
                 canPlay = true;
-            },
-            beforeSend: function ()
+            })
+            .catch(function (erreur)
             {
-                $("#loading").show();
-            },
-            complete: function ()
+                console.error(erreur);
+            })
+            .then(function ()
             {
                 $("#loading").hide();
-            }
-        });
+            });
     }
 
     $(document).ready(function ()
