@@ -11,6 +11,10 @@
 
 **🎮 [Jouer en ligne](https://clebail.github.io/sokojs/)**
 
+<p align="center">
+  <img src="demo.gif" alt="Démo : résolution d'un niveau Sokoban" width="320">
+</p>
+
 Poussez toutes les caisses (📦) sur leurs emplacements cibles (🎯) pour résoudre
 chaque niveau. Vous pouvez vous déplacer case par case au clavier, ou **cliquer
 sur une case accessible** : le personnage s'y rend tout seul par le plus court
