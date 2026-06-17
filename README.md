@@ -9,6 +9,8 @@
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-ready-222?logo=github)
 ![Tests](https://img.shields.io/badge/tests-node%3Atest-43853d?logo=node.js&logoColor=white)
 
+**🎮 [Jouer en ligne](https://clebail.github.io/sokojs/)**
+
 Poussez toutes les caisses (📦) sur leurs emplacements cibles (🎯) pour résoudre
 chaque niveau. Vous pouvez vous déplacer case par case au clavier, ou **cliquer
 sur une case accessible** : le personnage s'y rend tout seul par le plus court
@@ -103,12 +105,6 @@ Puis ouvrez <http://localhost:8000/> dans votre navigateur.
 > ⚠️ Ouvrir `index.html` directement en `file://` ne fonctionne pas : la plupart
 > des navigateurs bloquent `fetch` sur ce protocole. Passez par un serveur (local
 > ou GitHub Pages).
-
-### 🌐 Déploiement sur GitHub Pages
-
-Aucune configuration spécifique : dans **Settings → Pages**, choisissez la branche
-à publier (et le dossier racine `/`). Le jeu est servi tel quel — c'est l'intérêt
-du portage 100 % statique.
 
 ## ✅ Tests
 
