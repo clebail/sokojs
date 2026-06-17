@@ -1,0 +1,108 @@
+.game-sokoban .game-select {
+	display: table;
+	margin-bottom: 15px;
+	margin: auto;
+}
+
+.game-sokoban .game-select label {
+	display: table-cell;
+	width: 200px;
+	padding: 10px;
+	text-align: right;
+}
+
+.game-sokoban .game-select .select,
+.game-sokoban .game-select .reload,
+.game-sokoban .game-select .undo {
+	display: table-cell;
+}
+
+.game-sokoban .game-select .reload,
+.game-sokoban .game-select .undo {
+	padding-left: 15px;
+	position: relative;
+	width: 40px;
+}
+
+.game-sokoban .game-select .reload a,
+.game-sokoban .game-select .undo a {
+	position: absolute;
+	top: 5px;
+	color: #000;
+	text-decoration: none;
+}
+
+.game-sokoban .game-select select {
+	display: table-cell;
+	width: 300px;
+	padding: 10px;
+}
+
+.game-sokoban .soko {
+	display: table;
+	background-color: #FFECB3;
+	margin: auto;
+}
+
+.game-sokoban .soko .cell {
+	width: 32px;
+	height: 32px;
+	border: none;
+	padding: 0;
+	margin: 0;
+	display: table-cell;
+}
+
+.game-sokoban .soko .cell.mur {
+	background: transparent url(sprites.png) no-repeat 0 0;
+}
+
+.game-sokoban .soko .cell.caisse {
+	background: transparent url(sprites.png) no-repeat -32px 0;
+}
+
+.game-sokoban .soko .cell.destination.caisse {
+	background: transparent url(sprites.png) no-repeat -32px -32px;
+}
+
+.game-sokoban .soko .cell.destination {
+	background: transparent url(sprites.png) no-repeat 0 -32px;
+}
+
+.game-sokoban .soko .cell.joueur,
+.game-sokoban .soko .cell.joueur.destination {
+	background: transparent url(sprites.png) no-repeat 0 -64px;
+}
+
+.game-sokoban .soko .cell.joueur.gauche,
+.game-sokoban .soko .cell.joueur.gauche.destination {
+	background: transparent url(sprites.png) no-repeat -32px -64px;
+}
+
+.game-sokoban .soko .cell.joueur.droite,
+.game-sokoban .soko .cell.joueur.droite.destination {
+	background: transparent url(sprites.png) no-repeat -0px -96px;
+}
+
+.game-sokoban .indique {
+	margin: auto;
+	margin-bottom: 15px;
+	width: 100%;
+	max-width: 600px;
+}
+
+.game-sokoban .indique th,
+.game-sokoban .indique td {
+	border: 1px solid #DDD;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	white-space: nowrap;
+	padding: 10px;
+}
+
+.game-sokoban .indique span {
+	color: #c0392b;
+    font-family: monospace;
+}
+

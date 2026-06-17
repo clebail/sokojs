@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html dir="ltr" lang="fr-FR" class="no-js" xmlns:og="https://ogp.me/ns#">
+    <head>
+		<meta charset="UTF-8">
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Sokoban</title>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="sokoban.css" media="all">
+        <script src="jquery-3.2.1.min.js"></script>
+    </head>
+		<div class="game-sokoban">
+			<div class="game-select">
+				<label for="selectNiveau">Sélection du niveau</label>
+				<div class="select">
+					<select id="selectNiveau">
+						<option value="1">Niveau 1</option>
+						<option value="2">Niveau 2</option>
+						<option value="3">Niveau 3</option>
+						<option value="4">Niveau 4</option>
+						<option value="5">Niveau 5</option>
+						<option value="6">Niveau 6</option>
+						<option value="7">Niveau 7</option>
+						<option value="8">Niveau 8</option>
+						<option value="9">Niveau 9</option>
+						<option value="10">Niveau 10</option>
+						<option value="11">Niveau 11</option>
+						<option value="12">Niveau 12</option>
+						<option value="13">Niveau 13</option>
+						<option value="14">Niveau 14</option>
+						<option value="15">Niveau 15</option>
+						<option value="16">Niveau 16</option>
+						<option value="17">Niveau 17</option>
+						<option value="18">Niveau 18</option>
+						<option value="19">Niveau 19</option>
+						<option value="20">Niveau 20</option>
+						<option value="21">Niveau 21</option>
+						<option value="22">Niveau 22</option>
+						<option value="23">Niveau 23</option>
+						<option value="24">Niveau 24</option>
+						<option value="25">Niveau 25</option>
+						<option value="26">Niveau 26</option>
+						<option value="27">Niveau 27</option>
+						<option value="28">Niveau 28</option>
+						<option value="29">Niveau 29</option>
+						<option value="30">Niveau 30</option>
+						<option value="31">Niveau 31</option>
+						<option value="32">Niveau 32</option>
+					</select>
+				</div>
+				<div class="reload">
+					<a href="#" title="Recharger">
+						<i class="material-icons">autorenew</i>
+					</a>
+				</div>
+				<div class="undo">
+					<a href="#" title="Annuler">
+						<i class="material-icons">&#xE166;</i>
+					</a>
+				</div>
+			</div>
+			<br />
+			<br />
+			<br />
+			<table class="indique">
+				<tbody>
+					<tr>
+						<td>Poussées : <span class="nbPush">0</span></td>
+						<td>Mouvements : <span class="nbMove">0</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="soko">
+			</div>
+			<!-- <div class="highscore">
+				<div>
+					<h2>Meilleurs scores</h2>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Joueur</th>
+								<th>Nombre de poussées</th>
+								<th>Nombre de mouvement</th>
+								<th>le</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div> -->
+		</div>
+		<script src="astar.js"></script>
+		<script src="game.js"></script>
+		<script src="render.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
